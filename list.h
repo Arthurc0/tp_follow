@@ -36,5 +36,6 @@ s_node * list_destroy(s_node * head);
 	// destruction d'une liste
 	//  (La liberation des donnees n'est pas prise en charge)
 
+int data_exists(s_node * head, void * data);
 
 #endif

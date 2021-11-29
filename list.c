@@ -168,3 +168,15 @@ s_node * list_destroy(s_node * head) {
     
     return head;
 }
+
+// vérifie si une donnée existe dans une liste
+// retourne 1 si elle existe déjà, 0 sinon
+int data_exists(s_node * head, void * data) {
+    while(head != NULL) {
+        if(compare_node(head,data) == 0) {
+            return 1;
+        }
+        head = head->next;
+    }
+    return 0;
+}

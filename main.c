@@ -55,21 +55,18 @@ int main() {
     
     hash = hash_append(hash, "a");
     hash = hash_append(hash, "b");
-    hash = hash_append(hash, "c");
     hash = hash_append(hash, "d");
     hash = hash_append(hash, "e");
-    hash = hash_append(hash, "f");
     hash = hash_append(hash, "k");
     hash = hash_append(hash, "p");
     hash = hash_append(hash, "u");
-    hash = hash_append(hash, "z");
-    hash = hash_append(hash, "z");
-
-    hash = hash_remove(hash, "p");
+    hash = hash_append(hash, "j");
+    hash = hash_append(hash, "o");
     
     print_hash(hash);
 
-    /*
+    hash_stats(hash);
+    
     hash = hash_destroy(hash);
-    printf("Pointeur de la table de hachage (après destroy) : %p\n", hash);*/
+    printf("Pointeur de la table de hachage (après destroy) : %p\n", hash);
 }

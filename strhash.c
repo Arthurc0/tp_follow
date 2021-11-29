@@ -1,4 +1,6 @@
 #include <stdlib.h>
+#include <stdio.h>
+#include <math.h>
 #include "strhash.h"
 #include "list.h"
 
@@ -44,13 +46,11 @@ s_hash * hash_append(s_hash * hash_table, char * data) {
         hash_table->lists[key].head = list_insert(hash_table->lists[key].head, data);
         hash_table->lists[key].nodes_number++;
     } else {
-        s_node * list = hash_table->lists[key].head;
-        list = list_remove(list, data);
-        
         // Si la donnée n'existe pas
-        if(list == hash_table->lists[key].head) {
+        if(!data_exists(hash_table->lists[key].head, data)) {
             hash_table->lists[key].nodes_number++;
         }
+
         hash_table->lists[key].head = list_orderedAppend(hash_table->lists[key].head, &compare_node, data);
     }
 
@@ -65,5 +65,31 @@ s_hash * hash_remove(s_hash * hash_table, char * data) {
 }
 
 void hash_stats(s_hash * hash_table) {
-    // Afficher des données statistiques concernant la table de hachage (nombre total d'éléments / nombre minimum et maximum d'éléments par entrée, écart-type du nombre d'éléments par entrée)
+    int total;
+    int min;
+    int max;
+
+    total = 0;
+    min = 999;
+    max = 0;
+
+    for(int i = 0; i < hash_table->size; i++) {
+        total += hash_table->lists[i].nodes_number;
+        if(max < hash_table->lists[i].nodes_number) max = hash_table->lists[i].nodes_number;
+        if(min > hash_table->lists[i].nodes_number && hash_table->lists[i].nodes_number != 0) min = hash_table->lists[i].nodes_number;
+    }
+
+    float moyenne = total / hash_table->size;
+    float ecart_carre = 0;
+
+    for(int i = 0; i < hash_table->size; i++) {
+        ecart_carre += pow(hash_table->lists[i].nodes_number - moyenne, 2);
+    }
+
+    float ecart_type = sqrt(abs(ecart_carre / hash_table->size));
+
+    printf("Nombre total d'éléments : %d\n", total);
+    printf("Nombre minimum d'éléments par entrée : %d\n", min);
+    printf("Nombre maximum d'éléments par entrée : %d\n", max);
+    printf("Ecart-type du nombre d'éléments par entrée : %f\n", ecart_type);
 }
