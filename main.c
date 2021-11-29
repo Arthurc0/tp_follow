@@ -2,61 +2,74 @@
 #include <stdlib.h>
 #include "list.h"
 #include "testListHelpers.h"
+#include "testHashHelpers.h"
 #include "strhash.h"
 
 int main() {
     s_node * list = list_create();
 
-    /*int i = 1;
-    int j = 5;
-    int k = 19;
-    int l = 28;
+    char * a = "a";
+    char * b = "b";
+    char * c = "c";
+    char * d = "d";
+    char * e = "e";
 
-    int m = 20;
+    printf("\n");
     
-    list_set_data(list, &i);
+    list_set_data(list, a);
+    printf("Initialiser a :    %s\n", list_to_string(list, node_int_to_string));
 
-    list = list_append(list, &j);
-    list = list_remove(list, &i);
+    list = list_append(list, b);
+    printf("Append b :    %s\n", list_to_string(list, node_int_to_string));
+
+    list = list_remove(list, a);
+    printf("Remove a :    %s\n", list_to_string(list, node_int_to_string));
+    
     list = list_headRemove(list);
-    list = list_append(list, &k);
-    list = list_append(list, &l);
-    list = list_orderedAppend(list, &compare_node, &m);
+    printf("Remove tête :    %s\n", list_to_string(list, node_int_to_string));
     
-    */
-
-    char * i = "salut";
-    char * j = "non";
-    char * k = "je";
-    char * l = "ok";
+    list = list_append(list, c);
+    list = list_append(list, d);
+    printf("Append c et d :    %s\n", list_to_string(list, node_int_to_string));
     
-    char * m = "ah";
+    list = list_orderedAppend(list, &compare_node, e);
+    list = list_orderedAppend(list, &compare_node, d);
+    printf("Ordered Append e et d :    %s\n", list_to_string(list, node_int_to_string));
+    
+    list = list_remove(list, d);
+    printf("Remove d :    %s\n", list_to_string(list, node_int_to_string));
+    
+    list = list_orderedAppend(list, &compare_node, d);
+    printf("Ordered Append d :    %s\n", list_to_string(list, node_int_to_string));
 
-    list_set_data(list, i);
+    list = list_destroy(list);
+    printf("Destroy :    %s\n", list_to_string(list, node_int_to_string));
+    
 
-    list = list_append(list, j);
-    list = list_remove(list, i);
-    list = list_headRemove(list);
-    list = list_append(list, k);
-    list = list_append(list, l);
-    list = list_orderedAppend(list, &compare_node, m);
+    printf("\n");
 
-    char * list_string = list_to_string(list, &node_int_to_string);
-
-    printf("%s\n", list_string);
 
     
     s_hash * hash = hash_create(5);
-    printf("\n");
     printf("Nombre d'entrées : %d\n", hash->size);
-    printf("Pointeur des noeuds : %p\n", hash->nodes);
-    printf("Pointeur de la table de hachage (avant destroy) : %p\n", hash);
+    
+    hash = hash_append(hash, "a");
+    hash = hash_append(hash, "b");
+    hash = hash_append(hash, "c");
+    hash = hash_append(hash, "d");
+    hash = hash_append(hash, "e");
+    hash = hash_append(hash, "f");
+    hash = hash_append(hash, "k");
+    hash = hash_append(hash, "p");
+    hash = hash_append(hash, "u");
+    hash = hash_append(hash, "z");
+    hash = hash_append(hash, "z");
 
-    hash = hash_append(hash, list->data);
+    hash = hash_remove(hash, "p");
+    
+    print_hash(hash);
 
-    printf("%p\n", hash->nodes[3]);
-
-
-    /*hash = hash_destroy(hash);
+    /*
+    hash = hash_destroy(hash);
     printf("Pointeur de la table de hachage (après destroy) : %p\n", hash);*/
 }

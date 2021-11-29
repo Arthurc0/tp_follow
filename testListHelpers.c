@@ -28,11 +28,11 @@
    -----------------------------------------------------------------
 */
 int node_int_to_string(s_node * node, char *buffer, int size) {
-	int * value;
+	char * value;
 	int str_length;
 
-	value=(int *)list_get_data(node);
-	str_length=snprintf(buffer, size, "%d", *value);
+	value=(char *)list_get_data(node);
+	str_length=snprintf(buffer, size, "%s", value);
 	return (str_length >= size);  // voir man snprintf (return value)
 }
 
