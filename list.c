@@ -126,14 +126,13 @@ s_node * list_orderedAppend(s_node * head, int (*compare)(s_node *, void *), voi
 // suppression de la premiere instance d'une
 // donnee dans la liste, retourne la tete de liste
 s_node * list_remove(s_node * head, void * data) {
-    s_node * current_node = head;
-
-    if(list_get_data(current_node) == data) {
-        head = head->next;
-        free(current_node);
-        return head;
-    }
     
+    if(list_get_data(head) == data) {
+        if(head->next == NULL) head->next = list_create();
+        return head->next;
+    }
+
+    s_node * current_node = head;
     s_node * previous_node;
 
     while(current_node != NULL && current_node->data != data) {
@@ -148,6 +147,15 @@ s_node * list_remove(s_node * head, void * data) {
     
     return head;
 }
+/*
+data = b
+
+head = c -> b -> null
+
+current_node = c -> b -> null
+previous_node = c -> b -> null
+*/
+
 
 // suppression de la tete de liste
 // retourne la nouvelle tete de liste

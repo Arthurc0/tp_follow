@@ -63,10 +63,15 @@ int main() {
     hash = hash_append(hash, "j");
     hash = hash_append(hash, "o");
     
+    hash = hash_remove(hash, "b");
+    //hash = hash_append(hash, "b");
+
     print_hash(hash);
 
+    printf("%p\n", hash->lists[3].head);
+
     hash_stats(hash);
-    
+    /*
     hash = hash_destroy(hash);
-    printf("Pointeur de la table de hachage (après destroy) : %p\n", hash);
+    printf("Pointeur de la table de hachage (après destroy) : %p\n", hash);*/
 }

@@ -58,8 +58,10 @@ s_hash * hash_append(s_hash * hash_table, char * data) {
 }
 
 s_hash * hash_remove(s_hash * hash_table, char * data) {
+    printf("ok\n");
     int key = hash_key(data, hash_table->size);
-    hash_table->lists[key].head = list_remove(hash_table->lists[key].head, data);
+    printf("key : %d\n", key);
+    hash_table->lists[key].head = list_remove(hash_table->lists[key].head, (void *)data);
     hash_table->lists[key].nodes_number--;
     return hash_table;
 }
@@ -87,7 +89,7 @@ void hash_stats(s_hash * hash_table) {
     }
 
     float ecart_type = sqrt(abs(ecart_carre / hash_table->size));
-
+    
     printf("Nombre total d'éléments : %d\n", total);
     printf("Nombre minimum d'éléments par entrée : %d\n", min);
     printf("Nombre maximum d'éléments par entrée : %d\n", max);
