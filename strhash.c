@@ -18,15 +18,13 @@ s_hash * hash_create(int size) {
     return hash_table;
 }
 
-s_hash * hash_destroy(s_hash * hash_table) {
+void hash_destroy(s_hash * hash_table) {
     for(int i = 0; i < hash_table->size; i++) {
-        hash_table->lists[i].head = list_destroy(hash_table->lists[i].head);
+        free(hash_table->lists[i].head);
+        //test destroy
+        //hash_table->lists[i].head = list_destroy(hash_table->lists[i].head);
     }
-    
-    hash_table->lists = NULL;
-    hash_table = NULL;
-    
-    return hash_table;
+    free(hash_table);
 }
 
 static int hash_key(char * str, int size) {
@@ -50,7 +48,6 @@ s_hash * hash_append(s_hash * hash_table, char * data) {
         if(!data_exists(hash_table->lists[key].head, data)) {
             hash_table->lists[key].nodes_number++;
         }
-
         hash_table->lists[key].head = list_orderedAppend(hash_table->lists[key].head, &compare_node, data);
     }
 
@@ -58,11 +55,14 @@ s_hash * hash_append(s_hash * hash_table, char * data) {
 }
 
 s_hash * hash_remove(s_hash * hash_table, char * data) {
-    printf("ok\n");
     int key = hash_key(data, hash_table->size);
-    printf("key : %d\n", key);
+    
+    if(data_exists(hash_table->lists[key].head, (void *)data)) {
+        hash_table->lists[key].nodes_number--;
+    }
+    
     hash_table->lists[key].head = list_remove(hash_table->lists[key].head, (void *)data);
-    hash_table->lists[key].nodes_number--;
+
     return hash_table;
 }
 
@@ -88,7 +88,7 @@ void hash_stats(s_hash * hash_table) {
         ecart_carre += pow(hash_table->lists[i].nodes_number - moyenne, 2);
     }
 
-    float ecart_type = sqrt(abs(ecart_carre / hash_table->size));
+    float ecart_type = sqrt(ecart_carre / hash_table->size);
     
     printf("Nombre total d'éléments : %d\n", total);
     printf("Nombre minimum d'éléments par entrée : %d\n", min);

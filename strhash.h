@@ -17,7 +17,7 @@ struct _hash_table {
 
 s_hash * hash_create(int size);
 
-s_hash * hash_destroy(s_hash * hash_table);
+void hash_destroy(s_hash * hash_table);
 
 s_hash * hash_append(s_hash * hash_table, char * data);
 

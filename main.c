@@ -6,7 +6,7 @@
 #include "strhash.h"
 
 int main() {
-    s_node * list = list_create();
+    /*s_node * list = list_create();
 
     char * a = "a";
     char * b = "b";
@@ -46,32 +46,52 @@ int main() {
     printf("Destroy :    %s\n", list_to_string(list, node_int_to_string));
     
 
-    printf("\n");
+    printf("\n");*/
 
+    s_hash * hash;
 
+    int size_hash = 9;
     
-    s_hash * hash = hash_create(5);
-    printf("Nombre d'entrées : %d\n", hash->size);
+    hash = hash_create(size_hash);
     
-    hash = hash_append(hash, "a");
-    hash = hash_append(hash, "b");
-    hash = hash_append(hash, "d");
-    hash = hash_append(hash, "e");
-    hash = hash_append(hash, "k");
-    hash = hash_append(hash, "p");
-    hash = hash_append(hash, "u");
-    hash = hash_append(hash, "j");
-    hash = hash_append(hash, "o");
-    
-    hash = hash_remove(hash, "b");
-    //hash = hash_append(hash, "b");
-
+    printf("Create :\n\n");
     print_hash(hash);
 
-    printf("%p\n", hash->lists[3].head);
+    hash = hash_append(hash, "premier");
+    hash = hash_append(hash, "deuxieme");
+    hash = hash_append(hash, "troisieme");
+    hash = hash_append(hash, "quatrieme");
+    hash = hash_append(hash, "cinquieme");
+    hash = hash_append(hash, "sixieme");
+    hash = hash_append(hash, "septieme");
+    hash = hash_append(hash, "huitieme");
+    hash = hash_append(hash, "neuvieme");
+    hash = hash_append(hash, "dixieme");
+    hash = hash_append(hash, "onzieme");
+    hash = hash_append(hash, "douzieme");
+    hash = hash_append(hash, "treizieme");
+    hash = hash_append(hash, "quatorzieme");
+    hash = hash_append(hash, "quinzieme");
+    hash = hash_append(hash, "seizieme");
 
+    printf("Plusieurs append :\n\n");
+    print_hash(hash);
+
+    printf("Append déjà existant (septieme) :\n\n");
+    hash = hash_append(hash, "septieme");
+    print_hash(hash);
+
+    printf("Remove existant (quatrieme) :\n\n");
+    hash = hash_remove(hash, "quatrieme");
+    print_hash(hash);
+
+    printf("Remove inexistant (test) :\n\n");
+    hash = hash_remove(hash, "test");
+    print_hash(hash);
+
+    printf("Statistiques :\n\n");
     hash_stats(hash);
-    /*
-    hash = hash_destroy(hash);
-    printf("Pointeur de la table de hachage (après destroy) : %p\n", hash);*/
+
+    hash_destroy(hash);
+    printf("Pointeur de la table de hachage (après destroy) : %p\n", hash);
 }
