@@ -104,6 +104,7 @@ int main() {
 
     //-- **************************  CHARGEMENT / ANALYSE DE TEXTES **************************
     char * text = load_text("test.txt");
+    char * text2 = load_text("test2.txt");
     
     s_hash * hash;
     int size_hash = 9;
@@ -111,9 +112,13 @@ int main() {
 
     token ** tokens;
     tokens = tokenize_text(text, hash);
+
+    token ** tokens2;
+    tokens2 = tokenize_text(text2, hash);
     
     print_hash(hash);
     hash_stats(hash);
 
     print_tokens(tokens);
+    print_tokens(tokens2);
 }

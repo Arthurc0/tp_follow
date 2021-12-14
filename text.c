@@ -101,6 +101,8 @@ token ** tokenize_text(char * text, s_hash * hash_table) {
         tokens[tokens_number] = token;
         tokens_number++;
     }
+    
+    tokens = realloc(tokens, (tokens_number+1) * sizeof(token));
     tokens[tokens_number] = NULL;
     
     return tokens;
