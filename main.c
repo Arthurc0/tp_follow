@@ -4,8 +4,12 @@
 #include "testListHelpers.h"
 #include "testHashHelpers.h"
 #include "strhash.h"
+#include "text.h"
 
 int main() {
+
+    //-- **************************  LISTE **************************
+
     /*s_node * list = list_create();
 
     char * a = "a";
@@ -17,37 +21,39 @@ int main() {
     printf("\n");
     
     list_set_data(list, a);
-    printf("Initialiser a :    %s\n", list_to_string(list, node_int_to_string));
+    printf("Initialiser a :    %s\n", list_to_string(list));
 
     list = list_append(list, b);
-    printf("Append b :    %s\n", list_to_string(list, node_int_to_string));
+    printf("Append b :    %s\n", list_to_string(list));
 
     list = list_remove(list, a);
-    printf("Remove a :    %s\n", list_to_string(list, node_int_to_string));
+    printf("Remove a :    %s\n", list_to_string(list));
     
     list = list_headRemove(list);
-    printf("Remove tête :    %s\n", list_to_string(list, node_int_to_string));
+    printf("Remove tête :    %s\n", list_to_string(list));
     
     list = list_append(list, c);
     list = list_append(list, d);
-    printf("Append c et d :    %s\n", list_to_string(list, node_int_to_string));
+    printf("Append c et d :    %s\n", list_to_string(list));
     
     list = list_orderedAppend(list, &compare_node, e);
     list = list_orderedAppend(list, &compare_node, d);
-    printf("Ordered Append e et d :    %s\n", list_to_string(list, node_int_to_string));
+    printf("Ordered Append e et d :    %s\n", list_to_string(list));
     
     list = list_remove(list, d);
-    printf("Remove d :    %s\n", list_to_string(list, node_int_to_string));
+    printf("Remove d :    %s\n", list_to_string(list));
     
     list = list_orderedAppend(list, &compare_node, d);
-    printf("Ordered Append d :    %s\n", list_to_string(list, node_int_to_string));
+    printf("Ordered Append d :    %s\n", list_to_string(list));
 
     list = list_destroy(list);
-    printf("Destroy :    %s\n", list_to_string(list, node_int_to_string));
+    printf("Destroy :    %s\n", list_to_string(list));
     
 
     printf("\n");*/
 
+    //-- **************************  TABLE DE HACHAGE **************************
+    /*
     s_hash * hash;
 
     int size_hash = 9;
@@ -94,4 +100,20 @@ int main() {
 
     hash_destroy(hash);
     printf("Pointeur de la table de hachage (après destroy) : %p\n", hash);
+    */
+
+    //-- **************************  CHARGEMENT / ANALYSE DE TEXTES **************************
+    char * text = load_text("test.txt");
+    
+    s_hash * hash;
+    int size_hash = 9;
+    hash = hash_create(size_hash);
+
+    token ** tokens;
+    tokens = tokenize_text(text, hash);
+    
+    print_hash(hash);
+    hash_stats(hash);
+
+    print_tokens(tokens);
 }

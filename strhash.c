@@ -27,8 +27,8 @@ void hash_destroy(s_hash * hash_table) {
     free(hash_table);
 }
 
-static int hash_key(char * str, int size) {
-    int key = 0;
+static long long hash_key(char * str, int size) {
+    long long key = 0;
     for(int i = 0; str[i] != '\0'; i++) {
         key = key * 2;
         key = key + str[i];
@@ -38,8 +38,8 @@ static int hash_key(char * str, int size) {
 }
 
 s_hash * hash_append(s_hash * hash_table, char * data) {
-    int key = hash_key(data, hash_table->size);
-
+    long long key = hash_key(data, hash_table->size);
+    
     if(hash_table->lists[key].head->data == NULL) {
         hash_table->lists[key].head = list_insert(hash_table->lists[key].head, data);
         hash_table->lists[key].nodes_number++;
@@ -55,7 +55,7 @@ s_hash * hash_append(s_hash * hash_table, char * data) {
 }
 
 s_hash * hash_remove(s_hash * hash_table, char * data) {
-    int key = hash_key(data, hash_table->size);
+    long long key = hash_key(data, hash_table->size);
     
     if(data_exists(hash_table->lists[key].head, (void *)data)) {
         hash_table->lists[key].nodes_number--;

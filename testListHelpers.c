@@ -6,6 +6,7 @@
    ---------------------------------------------------------
 */
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include "list.h"
 #include "testListHelpers.h"
@@ -59,7 +60,7 @@ char *  list_to_string (s_node * head,
 
 	while( head && length<max_length-1 ) {
 		int append;
-	 	(void)(*node_to_string)(head, buffer, NODE_AS_A_STRING_MAX_SIZE-1);	
+	 	(void)(*node_to_string)(head, buffer, NODE_AS_A_STRING_MAX_SIZE-1);
 
 		append = snprintf( list_as_a_string+length , 
 			            max_length - length, "%s", buffer); 
@@ -69,7 +70,7 @@ char *  list_to_string (s_node * head,
 		append = snprintf( list_as_a_string+length , 
 			            max_length - length, " -> "); 
 		if ( append >= max_length-length ) length = max_length-1;
-		else			           length += append;	
+		else			           length += append;
 
 		head=head->next;
 	}
@@ -102,6 +103,3 @@ int check_list_state(s_node * head,  int (*node_to_string)(s_node * node, char *
 	}
 	return 1;
 }
-
-
-

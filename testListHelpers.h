@@ -56,5 +56,4 @@ int check_list_state (s_node * head,
 		      int (*node_to_string)(s_node * node, char * buffer, int size),
 		      const char * waited);
 
-
 #endif
